@@ -1,0 +1,18 @@
+users_utilisateur:
+    resource: "@UsersUtilisateurBundle/Resources/config/routing.yml"
+    prefix:   /
+
+pages_pages:
+    resource: "@PagesPagesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ep_epapetrie:
+    resource: "@EPEpapetrieBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+app:
+    resource: @AppBundle/Controller/
+    type:     annotation
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
