@@ -3055,7 +3055,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>55396485bbdda</argument>
+            <argument>5554968ee7658</argument>
           </service>
         </argument>
         <argument type="service">
@@ -3348,7 +3348,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>55396485bbdda</argument>
+            <argument>5554968ee7658</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -3675,6 +3675,18 @@
       <call method="addGlobal">
         <argument>app</argument>
         <argument type="service" id="templating.globals"/>
+      </call>
+      <call method="addGlobal">
+        <argument>telephone</argument>
+        <argument>01 49 29 47 00</argument>
+      </call>
+      <call method="addGlobal">
+        <argument>fax</argument>
+        <argument>02 35 00 00 00</argument>
+      </call>
+      <call method="addGlobal">
+        <argument>adresse</argument>
+        <argument>108 avenue de la république - Paris 75 011</argument>
       </call>
     </service>
     <service id="twig.translation.extractor" class="Symfony\Bridge\Twig\Translation\TwigExtractor">

@@ -45,55 +45,55 @@ class __TwigTemplate_cbecf8e52acf8db9d392978802f834dc28eca11c2ff5079611744ccdfd8
         // line 14
         echo "        </div>
         <div class=\"span9\">
-
-            <ul class=\"thumbnails\">
+            ";
+        // line 16
+        if ((twig_length_filter($this->env, (isset($context["produits"]) ? $context["produits"] : $this->getContext($context, "produits"))) != 0)) {
+            // line 17
+            echo "            <ul class=\"thumbnails\">
 
                 ";
-        // line 19
-        $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["produits"]) ? $context["produits"] : $this->getContext($context, "produits")));
-        foreach ($context['_seq'] as $context["_key"] => $context["produit"]) {
-            // line 20
-            echo "
-
-
-
-                <li class=\"span3\">
+            // line 19
+            $context['_parent'] = (array) $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["produits"]) ? $context["produits"] : $this->getContext($context, "produits")));
+            foreach ($context['_seq'] as $context["_key"] => $context["produit"]) {
+                // line 20
+                echo "
+                 <li class=\"span3\">
                     <div class=\"thumbnail\">
                         <img src=\"";
-            // line 26
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["produit"], "image", array()), "path", array()), "html", null, true);
-            echo "\" alt=\"";
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["produit"], "image", array()), "alt", array()), "html", null, true);
-            echo "\" width=\"300\" height=\"300\">
+                // line 23
+                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["produit"], "image", array()), "path", array()), "html", null, true);
+                echo "\" alt=\"";
+                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["produit"], "image", array()), "alt", array()), "html", null, true);
+                echo "\" width=\"300\" height=\"300\">
                         <div class=\"caption\">
                             <h4>";
-            // line 28
-            echo twig_escape_filter($this->env, $this->getAttribute($context["produit"], "nom", array()), "html", null, true);
-            echo "</h4>
+                // line 25
+                echo twig_escape_filter($this->env, $this->getAttribute($context["produit"], "nom", array()), "html", null, true);
+                echo "</h4>
                             <p>";
-            // line 29
-            echo twig_escape_filter($this->env, $this->getAttribute($context["produit"], "prix", array()), "html", null, true);
-            echo "</p>
+                // line 26
+                echo twig_escape_filter($this->env, $this->getAttribute($context["produit"], "prix", array()), "html", null, true);
+                echo "</p>
                             <a class=\"btn btn-primary\" href=\"";
-            // line 30
-            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("ep_epapetrie_produit", array("id" => $this->getAttribute($context["produit"], "id", array()))), "html", null, true);
-            echo "\">Plus d'infos</a>
+                // line 27
+                echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("ep_epapetrie_produit", array("id" => $this->getAttribute($context["produit"], "id", array()))), "html", null, true);
+                echo "\">Plus d'infos</a>
                             <a class=\"btn btn-success\" href=\"";
-            // line 31
-            echo $this->env->getExtension('routing')->getPath("ep_epapetrie_panier");
-            echo "\">Ajouter au panier</a>
+                // line 28
+                echo $this->env->getExtension('routing')->getPath("ep_epapetrie_panier");
+                echo "\">Ajouter au panier</a>
                         </div>
                     </div>
                 </li>
 
                 ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['produit'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 37
-        echo "
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['produit'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 34
+            echo "
             </ul>
 
             <div class=\"pagination\">
@@ -107,7 +107,16 @@ class __TwigTemplate_cbecf8e52acf8db9d392978802f834dc28eca11c2ff5079611744ccdfd8
                     <li><a href=\"#\">Suivant</a></li>
                 </ul>
             </div>
-
+                
+                ";
+        } else {
+            // line 50
+            echo "                     Aucun produit
+                
+                ";
+        }
+        // line 53
+        echo "
         </div>
     </div>
 </div>
@@ -128,6 +137,6 @@ class __TwigTemplate_cbecf8e52acf8db9d392978802f834dc28eca11c2ff5079611744ccdfd8
 
     public function getDebugInfo()
     {
-        return array (  96 => 37,  84 => 31,  80 => 30,  76 => 29,  72 => 28,  65 => 26,  57 => 20,  53 => 19,  46 => 14,  43 => 13,  40 => 12,  38 => 11,  31 => 6,  28 => 5,  11 => 1,);
+        return array (  119 => 53,  114 => 50,  96 => 34,  84 => 28,  80 => 27,  76 => 26,  72 => 25,  65 => 23,  60 => 20,  56 => 19,  52 => 17,  50 => 16,  46 => 14,  43 => 13,  40 => 12,  38 => 11,  31 => 6,  28 => 5,  11 => 1,);
     }
 }

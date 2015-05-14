@@ -58,8 +58,8 @@ class __TwigTemplate_d0a047c303b7ce0cb0b830010d46ad477f635e4cdd01b334a497d84604e
             <div class=\"navbar-inner\">
                 <div class=\"container\">
                     <button type=\"button\"class=\"btn btn-navbar\" data-target=\".nav-collapse\" data-toggle=\"collapse\" >
-
-
+                            
+                       
 
                         <span class=\"icon-bar\">  </span>
                         <span class=\"icon-bar\"> </span>
@@ -69,19 +69,24 @@ class __TwigTemplate_d0a047c303b7ce0cb0b830010d46ad477f635e4cdd01b334a497d84604e
         // line 26
         echo $this->env->getExtension('routing')->getPath("ep_epapetrie_allProducts");
         echo "\">Sogip CEBO</a>
-                    <div class=\"nav-collapse collapse\">
-                        <form class=\"navbar-form form-search pull-right\">
-                            <input id=\"Search\" name=\"Search\" type=\"text\" class=\"input-medium search-query\">
-                            <button type=\"submit\" class=\"btn\">Rechercher</button>
-                        </form>
+                    <div class=\"nav-collapse collapse\">      
+                         
+                        <div class=\"nav-collapse collapse\">
+                           ";
+        // line 30
+        echo $this->env->getExtension('actions')->renderUri($this->env->getExtension('http_kernel')->controller("EPEpapetrieBundle:Produits:recherche"), array());
+        // line 31
+        echo "
+                    </div>
+         
                     </div>
                 </div>
             </div>
         </div>
         ";
-        // line 36
+        // line 38
         $this->displayBlock('body', $context, $blocks);
-        // line 37
+        // line 39
         echo "
         <hr />
         <footer id=\"footer\" class=\"vspace20\">
@@ -92,44 +97,60 @@ class __TwigTemplate_d0a047c303b7ce0cb0b830010d46ad477f635e4cdd01b334a497d84604e
                         <ul class=\"nav nav-stacked\">
 
                              ";
-        // line 46
+        // line 48
         echo $this->env->getExtension('actions')->renderUri($this->env->getExtension('http_kernel')->controller("PagesPagesBundle:Pages:menu"), array());
-        // line 47
+        // line 49
         echo "
                         </ul>
                     </div>
 
                     <div class=\"span4\">
                         <h4>Notre Magasin </h4>
-                        <p><i class=\"icon-map-marker\"></i>&nbsp;Paris 75 011 - 108 avenue de la république</p>
+                        
+                        ";
+        // line 56
+        echo " 
+                        <p><i class=\"icon-map-marker\"></i>&nbsp; ";
+        // line 57
+        echo twig_escape_filter($this->env, (isset($context["adresse"]) ? $context["adresse"] : $this->getContext($context, "adresse")), "html", null, true);
+        echo "</p>
                     </div>
 
                     <div class=\"span2\">
                         <h4>Nous contacter</h4>
-                        <p><i class=\"icon-phone\"></i>&nbsp;Tel: 01 49 29 47 00</p>
-                        <p><i class=\"icon-print\"></i>&nbsp;Fax: 02 35 00 00 00</p>
+                        <p><i class=\"icon-phone\"></i>&nbsp;Tel: ";
+        // line 62
+        echo twig_escape_filter($this->env, (isset($context["telephone"]) ? $context["telephone"] : $this->getContext($context, "telephone")), "html", null, true);
+        echo "</p>
+                        <p><i class=\"icon-print\"></i>&nbsp;Fax: ";
+        // line 63
+        echo twig_escape_filter($this->env, (isset($context["fax"]) ? $context["fax"] : $this->getContext($context, "fax")), "html", null, true);
+        echo "</p>
                     </div>
                 </div>
 
                 <div class=\"row\">
                     <div class=\"span4\">
-                        <p>&copy; Copyright 2015 - Sogip CEBO</p>
+                        <p>&copy; Copyright ";
+        // line 69
+        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, "now", "Y"), "html", null, true);
+        echo " - Sogip CEBO</p>
                     </div>
                 </div>
             </div>
         </footer>
        <script src=\"";
-        // line 70
+        // line 74
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("js/jquery-1.10.0.min.js"), "html", null, true);
         echo "\"></script>
        <script src=\"";
-        // line 71
+        // line 75
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("../js/bootstrap.js"), "html", null, true);
         echo "\"></script>
         ";
-        // line 72
+        // line 76
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 73
+        // line 77
         echo "    </body>
 </html>
 ";
@@ -146,12 +167,12 @@ class __TwigTemplate_d0a047c303b7ce0cb0b830010d46ad477f635e4cdd01b334a497d84604e
     {
     }
 
-    // line 36
+    // line 38
     public function block_body($context, array $blocks = array())
     {
     }
 
-    // line 72
+    // line 76
     public function block_javascripts($context, array $blocks = array())
     {
     }
@@ -168,6 +189,6 @@ class __TwigTemplate_d0a047c303b7ce0cb0b830010d46ad477f635e4cdd01b334a497d84604e
 
     public function getDebugInfo()
     {
-        return array (  155 => 72,  150 => 36,  145 => 6,  139 => 5,  133 => 73,  131 => 72,  127 => 71,  123 => 70,  98 => 47,  96 => 46,  85 => 37,  83 => 36,  70 => 26,  52 => 11,  48 => 10,  44 => 9,  40 => 8,  35 => 7,  33 => 6,  29 => 5,  23 => 1,);
+        return array (  176 => 76,  171 => 38,  166 => 6,  160 => 5,  154 => 77,  152 => 76,  148 => 75,  144 => 74,  136 => 69,  127 => 63,  123 => 62,  115 => 57,  112 => 56,  103 => 49,  101 => 48,  90 => 39,  88 => 38,  79 => 31,  77 => 30,  70 => 26,  52 => 11,  48 => 10,  44 => 9,  40 => 8,  35 => 7,  33 => 6,  29 => 5,  23 => 1,);
     }
 }

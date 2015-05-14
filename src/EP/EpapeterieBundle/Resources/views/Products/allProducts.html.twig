@@ -13,15 +13,12 @@
                 {% include '::modulesUsed/navigation.html.twig' %}
         </div>
         <div class="span9">
-
+            {% if produits|length != 0 %}
             <ul class="thumbnails">
 
                 {% for produit in produits %}
 
-
-
-
-                <li class="span3">
+                 <li class="span3">
                     <div class="thumbnail">
                         <img src="{{ produit.image.path }}" alt="{{produit.image.alt}}" width="300" height="300">
                         <div class="caption">
@@ -48,6 +45,11 @@
                     <li><a href="#">Suivant</a></li>
                 </ul>
             </div>
+                
+                {% else %}
+                     Aucun produit
+                
+                {% endif%}
 
         </div>
     </div>

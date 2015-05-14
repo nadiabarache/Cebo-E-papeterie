@@ -1,14 +1,22 @@
 ep_epapetrie_homepage:
     path:     /hello/{name}
     defaults: { _controller: EPEpapetrieBundle:Default:index }
+    
+ep_epapetrie_allProducts:
+   path:     /allProducts
+   defaults: { _controller: EPEpapetrieBundle:Produits:allProducts}
 
 ep_epapetrie_produit:
    path:     /produit/{id}
    defaults: { _controller: EPEpapetrieBundle:Produits:produit}
 
-ep_epapetrie_allProducts:
-   path:     /allProducts
-   defaults: { _controller: EPEpapetrieBundle:Produits:allProducts}
+ep_epapetrie_categorieProduits:
+   path:     /categorie/{categorie}
+   defaults: { _controller: EPEpapetrieBundle:Produits:categorie}
+   
+   ep_epapetrie_recherche:
+   path:     /recherche
+   defaults: { _controller: EPEpapetrieBundle:Produits:rechercheTraitement}
 
 ep_epapetrie_panier:
    path:     /panier
@@ -20,13 +28,4 @@ ep_epapetrie_achat:
 ep_epapetrie_validation:
    path:     /validation
    defaults: { _controller: EPEpapetrieBundle:Panier:validation}
-
-ep_epapetrie_ajoutproduit:
-   path:     /form
-   defaults: { _controller: EPEpapetrieBundle:DbProduit:formulaire}
-
-
-ep_epapetrie_categorieProduits:
-   path:     /categorie/{categorie}
-   defaults: { _controller: EPEpapetrieBundle:Produits:categorie}
 

@@ -16,19 +16,21 @@
             <div class="navbar-inner">
                 <div class="container">
                     <button type="button"class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" >
-
-
+                            
+                       
 
                         <span class="icon-bar">  </span>
                         <span class="icon-bar"> </span>
                         <span class="icon-bar"> </span>
                     </button>
                     <a class="brand" href="{{path('ep_epapetrie_allProducts')}}">Sogip CEBO</a>
-                    <div class="nav-collapse collapse">
-                        <form class="navbar-form form-search pull-right">
-                            <input id="Search" name="Search" type="text" class="input-medium search-query">
-                            <button type="submit" class="btn">Rechercher</button>
-                        </form>
+                    <div class="nav-collapse collapse">      
+                         
+                        <div class="nav-collapse collapse">
+                           {% render(controller('EPEpapetrieBundle:Produits:recherche')) %}
+
+                    </div>
+         
                     </div>
                 </div>
             </div>
@@ -50,19 +52,21 @@
 
                     <div class="span4">
                         <h4>Notre Magasin </h4>
-                        <p><i class="icon-map-marker"></i>&nbsp;Paris 75 011 - 108 avenue de la république</p>
+                        
+                        {# adresse, telephone, fax des constantes twig declarées dans parameters.yml #} 
+                        <p><i class="icon-map-marker"></i>&nbsp; {{ adresse }}</p>
                     </div>
 
                     <div class="span2">
                         <h4>Nous contacter</h4>
-                        <p><i class="icon-phone"></i>&nbsp;Tel: 01 49 29 47 00</p>
-                        <p><i class="icon-print"></i>&nbsp;Fax: 02 35 00 00 00</p>
+                        <p><i class="icon-phone"></i>&nbsp;Tel: {{ telephone }}</p>
+                        <p><i class="icon-print"></i>&nbsp;Fax: {{ fax }}</p>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="span4">
-                        <p>&copy; Copyright 2015 - Sogip CEBO</p>
+                        <p>&copy; Copyright {{ "now"|date('Y')}} - Sogip CEBO</p>
                     </div>
                 </div>
             </div>

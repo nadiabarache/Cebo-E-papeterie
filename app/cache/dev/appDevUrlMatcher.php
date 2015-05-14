@@ -177,6 +177,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_categorieProduits')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsController::categorieAction',));
         }
 
+        // ep_epapetrie_recherche
+        if ($pathinfo === '/recherche') {
+            return array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsController::rechercheTraitementAction',  '_route' => 'ep_epapetrie_recherche',);
+        }
+
         // homepage
         if ($pathinfo === '/app/example') {
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
