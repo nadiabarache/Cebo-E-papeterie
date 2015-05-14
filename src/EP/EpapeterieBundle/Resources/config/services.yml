@@ -1,4 +1,5 @@
 services:
-#    ep_epapetrie.example:
-#        class: EP\EpapeterieBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    tva:
+        class: EP\EpapeterieBundle\Twig\Extension\TvaExtension
+        tags:
+            - {  name: twig.extension  }

@@ -142,14 +142,19 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_homepage')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\DefaultController::indexAction',));
         }
 
+        // ep_epapetrie_allProducts
+        if ($pathinfo === '/allProducts') {
+            return array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsController::allProductsAction',  '_route' => 'ep_epapetrie_allProducts',);
+        }
+
         // ep_epapetrie_produit
         if (0 === strpos($pathinfo, '/produit') && preg_match('#^/produit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_produit')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsController::produitAction',));
         }
 
-        // ep_epapetrie_allProducts
-        if ($pathinfo === '/allProducts') {
-            return array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsController::allProductsAction',  '_route' => 'ep_epapetrie_allProducts',);
+        // ep_epapetrie_categorieProduits
+        if (0 === strpos($pathinfo, '/categorie') && preg_match('#^/categorie/(?P<categorie>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_categorieProduits')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsController::categorieAction',));
         }
 
         // ep_epapetrie_panier
@@ -165,16 +170,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         // ep_epapetrie_validation
         if ($pathinfo === '/validation') {
             return array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\PanierController::validationAction',  '_route' => 'ep_epapetrie_validation',);
-        }
-
-        // ep_epapetrie_ajoutproduit
-        if ($pathinfo === '/form') {
-            return array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\DbProduitController::formulaireAction',  '_route' => 'ep_epapetrie_ajoutproduit',);
-        }
-
-        // ep_epapetrie_categorieProduits
-        if (0 === strpos($pathinfo, '/categorie') && preg_match('#^/categorie/(?P<categorie>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_categorieProduits')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsController::categorieAction',));
         }
 
         // ep_epapetrie_recherche

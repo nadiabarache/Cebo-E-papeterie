@@ -13,10 +13,6 @@ ep_epapetrie_produit:
 ep_epapetrie_categorieProduits:
    path:     /categorie/{categorie}
    defaults: { _controller: EPEpapetrieBundle:Produits:categorie}
-   
-   ep_epapetrie_recherche:
-   path:     /recherche
-   defaults: { _controller: EPEpapetrieBundle:Produits:rechercheTraitement}
 
 ep_epapetrie_panier:
    path:     /panier
@@ -29,3 +25,6 @@ ep_epapetrie_validation:
    path:     /validation
    defaults: { _controller: EPEpapetrieBundle:Panier:validation}
 
+ep_epapetrie_recherche:
+   path:     /recherche
+   defaults: { _controller: EPEpapetrieBundle:Produits:rechercheTraitement}

@@ -23,7 +23,7 @@
                         <img src="{{ produit.image.path }}" alt="{{produit.image.alt}}" width="300" height="300">
                         <div class="caption">
                             <h4>{{ produit.nom }}</h4>
-                            <p>{{ produit.prix }}</p>
+                            <p>{{ produit.prix | tva(produit.tva.multiplicate) }}</p>
                             <a class="btn btn-primary" href="{{path('ep_epapetrie_produit', { 'id' : produit.id })}}">Plus d'infos</a>
                             <a class="btn btn-success" href="{{path('ep_epapetrie_panier')}}">Ajouter au panier</a>
                         </div>

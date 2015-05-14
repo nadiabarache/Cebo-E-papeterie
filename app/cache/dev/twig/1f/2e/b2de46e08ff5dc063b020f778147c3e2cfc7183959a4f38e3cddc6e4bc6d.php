@@ -64,7 +64,7 @@ class __TwigTemplate_1f2eb2de46e08ff5dc063b020f778147c3e2cfc7183959a4f38e3cddc6e
         echo "</p>
                         <h4>";
         // line 21
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "prix", array()), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('tva_extension')->calculTva($this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "prix", array()), $this->getAttribute($this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "tva", array()), "multiplicate", array())), "html", null, true);
         echo "€</h4>
 
                         <form action=\"panier.php\">

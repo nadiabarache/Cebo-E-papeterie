@@ -441,3 +441,15 @@ e75da4,127.0.0.1,GET,http://cebo/app_dev.php/_fragment?_path=_format%3Dhtml%26_l
 f846fe,127.0.0.1,GET,http://cebo/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DEPEpapetrieBundle%253ACategories%253Amenu,1431606986,5cf224
 343b0f,127.0.0.1,GET,http://cebo/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DPagesPagesBundle%253APages%253Amenu,1431606986,5cf224
 5cf224,127.0.0.1,GET,http://cebo/app_dev.php/allProducts,1431606986,
+c0d2ed,127.0.0.1,GET,http://cebo/app_dev.php/allProducts,1431609796,10e93a
+10e93a,127.0.0.1,GET,http://cebo/app_dev.php/allProducts,1431609796,
+8e95b7,127.0.0.1,GET,http://cebo/app_dev.php/allProducts,1431609827,976cdb
+976cdb,127.0.0.1,GET,http://cebo/app_dev.php/allProducts,1431609827,
+029b0e,127.0.0.1,GET,http://cebo/app_dev.php/allProducts,1431609853,95a45e
+95a45e,127.0.0.1,GET,http://cebo/app_dev.php/allProducts,1431609853,
+c1c3b5,127.0.0.1,GET,http://cebo/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DEPEpapetrieBundle%253AProduits%253Arecherche,1431610079,849e61
+05a5de,127.0.0.1,GET,http://cebo/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DEPEpapetrieBundle%253ACategories%253Amenu,1431610079,849e61
+ce5331,127.0.0.1,GET,http://cebo/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DPagesPagesBundle%253APages%253Amenu,1431610079,849e61
+849e61,127.0.0.1,GET,http://cebo/app_dev.php/allProducts,1431610079,
+f66ebf,127.0.0.1,GET,http://cebo/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DEPEpapetrieBundle%253ACategories%253Amenu,1431610104,2a5945
+2a5945,127.0.0.1,GET,http://cebo/app_dev.php/produit/37,1431610104,
