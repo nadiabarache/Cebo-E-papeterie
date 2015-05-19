@@ -1,6 +1,6 @@
 <?php
 
-/* @Debug/Profiler/dump.html.twig */
+/* DebugBundle:Profiler:dump.html.twig */
 class __TwigTemplate_4b370d8ef2bc3dadbb59c99ff0fa14c266c013c1febe8a599d3f1a2e5195a2bf extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -8,7 +8,7 @@ class __TwigTemplate_4b370d8ef2bc3dadbb59c99ff0fa14c266c013c1febe8a599d3f1a2e519
         parent::__construct($env);
 
         // line 1
-        $this->parent = $this->loadTemplate("@WebProfiler/Profiler/layout.html.twig", "@Debug/Profiler/dump.html.twig", 1);
+        $this->parent = $this->loadTemplate("@WebProfiler/Profiler/layout.html.twig", "DebugBundle:Profiler:dump.html.twig", 1);
         $this->blocks = array(
             'toolbar' => array($this, 'block_toolbar'),
             'menu' => array($this, 'block_menu'),
@@ -123,7 +123,7 @@ class __TwigTemplate_4b370d8ef2bc3dadbb59c99ff0fa14c266c013c1febe8a599d3f1a2e519
             echo "
         ";
             // line 36
-            $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "@Debug/Profiler/dump.html.twig", 36)->display(array_merge($context, array("link" => true)));
+            $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "DebugBundle:Profiler:dump.html.twig", 36)->display(array_merge($context, array("link" => true)));
             // line 37
             echo "    ";
         }
@@ -264,7 +264,7 @@ class __TwigTemplate_4b370d8ef2bc3dadbb59c99ff0fa14c266c013c1febe8a599d3f1a2e519
 
     public function getTemplateName()
     {
-        return "@Debug/Profiler/dump.html.twig";
+        return "DebugBundle:Profiler:dump.html.twig";
     }
 
     public function isTraitable()

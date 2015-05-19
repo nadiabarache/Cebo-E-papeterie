@@ -80,6 +80,7 @@
   'EPEpapetrieBundle:Default:index.html.twig' => '/var/www/E-Papeterie/src/EP/EpapeterieBundle/Resources/views/Default/index.html.twig',
   'EPEpapetrieBundle:Panier:achat.html.twig' => '/var/www/E-Papeterie/src/EP/EpapeterieBundle/Resources/views/Panier/achat.html.twig',
   'EPEpapetrieBundle:Panier:panier.html.twig' => '/var/www/E-Papeterie/src/EP/EpapeterieBundle/Resources/views/Panier/panier.html.twig',
+  'EPEpapetrieBundle:Panier:menu.html.twig' => '/var/www/E-Papeterie/src/EP/EpapeterieBundle/Resources/views/Panier/menu.html.twig',
   'EPEpapetrieBundle:Panier:validation.html.twig' => '/var/www/E-Papeterie/src/EP/EpapeterieBundle/Resources/views/Panier/validation.html.twig',
   'EPEpapetrieBundle:Products:test.html.twig' => '/var/www/E-Papeterie/src/EP/EpapeterieBundle/Resources/views/Products/test.html.twig',
   'EPEpapetrieBundle:Products:allProducts.html.twig' => '/var/www/E-Papeterie/src/EP/EpapeterieBundle/Resources/views/Products/allProducts.html.twig',
