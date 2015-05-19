@@ -7,6 +7,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PanierController extends Controller
 {
+    public function menuAction() {
+        $session = $this->getRequest()->getSession();
+        if(!$session->has('panier')) 
+            {$articles = 0;}
+        else 
+        {$articles = count($session->get('panier'));}
+        
+         return $this->render('EPEpapetrieBundle:Panier:menu.html.twig', array('articles' => $articles));
+    } 
     public function panierAction()
     {
         $session = $this->getRequest()->getSession();
@@ -42,7 +51,7 @@ class PanierController extends Controller
         }
         
         $session->set('panier', $panier) ; 
-        
+         $this->get('session')->getFlashBag()->add('success', 'Article ajouté');
       return $this->redirect($this->generateUrl('ep_epapetrie_panier'));  
     }
     
@@ -54,9 +63,10 @@ class PanierController extends Controller
          if(array_key_exists($id, $panier)) {
              unset($panier[$id]);
              $session->set('panier', $panier);
-         
+             $this->get('session')->getFlashBag()->add('success', 'Article est bien supprimé de votre panier ');
+          return $this->redirect($this->generateUrl('ep_epapetrie_panier'));
          }
-         return $this->redirect($this->generateUrl('ep_epapetrie_panier'));
+        
         
         return $this->redirect($this->generateUrl('ep_epapetrie_panier'));
     }

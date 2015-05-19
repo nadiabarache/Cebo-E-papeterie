@@ -3,3 +3,7 @@ services:
         class: EP\EpapeterieBundle\Twig\Extension\TvaExtension
         tags:
             - {  name: twig.extension  }
+    montantTva:
+      class: EP\EpapeterieBundle\Twig\Extension\MontantTvaExtension
+      tags:
+        - { name: twig.extension }
