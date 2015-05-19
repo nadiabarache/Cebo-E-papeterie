@@ -28,3 +28,11 @@ ep_epapetrie_validation:
 ep_epapetrie_recherche:
    path:     /recherche
    defaults: { _controller: EPEpapetrieBundle:Produits:rechercheTraitement}
+
+ep_epapetrie_ajouter:
+   path:     /ajouter/{id}
+   defaults: { _controller: EPEpapetrieBundle:Panier:ajouter}
+
+ep_epapetrie_supprimer:
+   path:     /supprimer/{id}
+   defaults: { _controller: EPEpapetrieBundle:Panier:supprimer}

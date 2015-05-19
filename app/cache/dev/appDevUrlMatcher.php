@@ -177,6 +177,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsController::rechercheTraitementAction',  '_route' => 'ep_epapetrie_recherche',);
         }
 
+        // ep_epapetrie_ajouter
+        if (0 === strpos($pathinfo, '/ajouter') && preg_match('#^/ajouter/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_ajouter')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\PanierController::ajouterAction',));
+        }
+
+        // ep_epapetrie_supprimer
+        if (0 === strpos($pathinfo, '/supprimer') && preg_match('#^/supprimer/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_supprimer')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\PanierController::supprimerAction',));
+        }
+
         // homepage
         if ($pathinfo === '/app/example') {
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);

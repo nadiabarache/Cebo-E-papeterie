@@ -19,10 +19,16 @@ class __TwigTemplate_4cf4eb6ead4b4434f5daf74f7ebb7ad432b0f9f42abccbc6cac6888854e
         echo "<div class=\"well\">
         <ul class=\"nav nav-list\">
             <li>
-                <a href=\" \">Se connecter</a>
+                <a href=\" ";
+        // line 4
+        echo $this->env->getExtension('routing')->getPath("fos_user_security_login");
+        echo " \">Se connecter</a>
             </li>
             <li>
-                <a href=\"\">S'inscrire</a>
+                <a href=\"";
+        // line 7
+        echo $this->env->getExtension('routing')->getPath("fos_user_registration_register");
+        echo "\">S'inscrire</a>
             </li>
         </ul>
     </div>
@@ -34,8 +40,13 @@ class __TwigTemplate_4cf4eb6ead4b4434f5daf74f7ebb7ad432b0f9f42abccbc6cac6888854e
         return "::modulesUsed/utilisateur.html.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  19 => 1,);
+        return array (  30 => 7,  24 => 4,  19 => 1,);
     }
 }

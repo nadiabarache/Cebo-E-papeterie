@@ -1,7 +1,5 @@
 {% extends '::layout/layout.html.twig' %}
 
-
-
 {% block body %}
 
 <div class="container">
@@ -9,11 +7,16 @@
 
         <div class="span3">
                 {% include '::modulesUsed/panier.html.twig'  %}
-                {% include '::modulesUsed/utilisateur.html.twig'  %}
-                {% include '::modulesUsed/navigation.html.twig' %}
+                       {% if is_granted('IS_AUTHENTICATED_FULLY')  %}
+                       {% include '::modulesUsed/navigation.html.twig' %}
+                       {% include '::modulesUsed/infoUser.html.twig'  %}
+                {% else %}
+                      {% include '::modulesUsed/navigation.html.twig' %}
+                       {% include '::modulesUsed/utilisateur.html.twig' %}
+                {% endif %}
         </div>
         <div class="span9">
-            {% if produits|length != 0 %}
+            {% if produits|  length != 0 %}
             <ul class="thumbnails">
 
                 {% for produit in produits %}
@@ -24,8 +27,8 @@
                         <div class="caption">
                             <h4>{{ produit.nom }}</h4>
                             <p>{{ produit.prix | tva(produit.tva.multiplicate) }}</p>
-                            <a class="btn btn-primary" href="{{path('ep_epapetrie_produit', { 'id' : produit.id })}}">Plus d'infos</a>
-                            <a class="btn btn-success" href="{{path('ep_epapetrie_panier')}}">Ajouter au panier</a>
+                            <a class="btn btn-primary" href="{{path('ep_epapetrie_produit', { 'id' :   produit.id }) }}">Plus d'infos</a>
+                            <a class="btn btn-success" href="{{path('ep_epapetrie_ajouter', { 'id' :  produit.id  }) }}">Ajouter au panier</a>
                         </div>
                     </div>
                 </li>

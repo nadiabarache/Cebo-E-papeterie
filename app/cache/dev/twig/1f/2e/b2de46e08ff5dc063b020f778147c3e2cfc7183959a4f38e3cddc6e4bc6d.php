@@ -8,15 +8,16 @@ class __TwigTemplate_1f2eb2de46e08ff5dc063b020f778147c3e2cfc7183959a4f38e3cddc6e
         parent::__construct($env);
 
         // line 1
-        $this->parent = $this->loadTemplate("::base.html.twig", "EPEpapetrieBundle:Products:produit.html.twig", 1);
+        $this->parent = $this->loadTemplate("::layout/layout.html.twig", "EPEpapetrieBundle:Products:produit.html.twig", 1);
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
             'body' => array($this, 'block_body'),
         );
     }
 
     protected function doGetParent(array $context)
     {
-        return "::base.html.twig";
+        return "::layout/layout.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
@@ -25,24 +26,32 @@ class __TwigTemplate_1f2eb2de46e08ff5dc063b020f778147c3e2cfc7183959a4f38e3cddc6e
     }
 
     // line 3
+    public function block_title($context, array $blocks = array())
+    {
+        echo " ";
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "nom", array()), "html", null, true);
+        echo " ";
+    }
+
+    // line 6
     public function block_body($context, array $blocks = array())
     {
-        // line 4
-        echo "
+        // line 7
+        echo "        
 
     <div class=\"container\">
         <div class=\"row\">
             <div class=\"span3\">
                   ";
-        // line 9
-        $this->loadTemplate("::modulesUsed/navigation.html.twig", "EPEpapetrieBundle:Products:produit.html.twig", 9)->display($context);
-        // line 10
+        // line 12
+        $this->loadTemplate("::modulesUsed/navigation.html.twig", "EPEpapetrieBundle:Products:produit.html.twig", 12)->display($context);
+        // line 13
         echo "            </div>
             <div class=\"span9\">
                 <div class=\"row\">
                     <div class=\"span5\">
                         <img src=\"";
-        // line 14
+        // line 17
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "image", array()), "path", array()), "html", null, true);
         echo "\" alt=\"";
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "image", array()), "alt", array()), "html", null, true);
@@ -51,26 +60,46 @@ class __TwigTemplate_1f2eb2de46e08ff5dc063b020f778147c3e2cfc7183959a4f38e3cddc6e
 
                     <div class=\"span4\">
                         <h4>";
-        // line 18
+        // line 21
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "nom", array()), "html", null, true);
         echo "</h4>
                         <h5> Categorie : ";
-        // line 19
+        // line 22
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "categorie", array()), "nom", array()), "html", null, true);
         echo " </h5>
                         <p>";
-        // line 20
+        // line 23
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "description", array()), "html", null, true);
         echo "</p>
                         <h4>";
-        // line 21
+        // line 24
         echo twig_escape_filter($this->env, $this->env->getExtension('tva_extension')->calculTva($this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "prix", array()), $this->getAttribute($this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "tva", array()), "multiplicate", array())), "html", null, true);
         echo "€</h4>
 
-                        <form action=\"panier.php\">
+                        <form action=\" ";
+        // line 26
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("ep_epapetrie_ajouter", array("id" => $this->getAttribute((isset($context["produit"]) ? $context["produit"] : $this->getContext($context, "produit")), "id", array()))), "html", null, true);
+        echo "\" method=\"get\">
+                            
                             <select name=\"qte\" class=\"span1\">
-                                <option>1</option>
-                            </select>
+                                ";
+        // line 29
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable(range(1, 10));
+        foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
+            // line 30
+            echo "                                <option value=\"";
+            echo twig_escape_filter($this->env, $context["i"], "html", null, true);
+            echo "\"> ";
+            echo twig_escape_filter($this->env, $context["i"], "html", null, true);
+            echo "</option>
+                                ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 32
+        echo "                            </select>
 
                             <div>
                                 <button class=\"btn btn-primary\">Ajouter au panier</button>
@@ -99,6 +128,6 @@ class __TwigTemplate_1f2eb2de46e08ff5dc063b020f778147c3e2cfc7183959a4f38e3cddc6e
 
     public function getDebugInfo()
     {
-        return array (  67 => 21,  63 => 20,  59 => 19,  55 => 18,  46 => 14,  40 => 10,  38 => 9,  31 => 4,  28 => 3,  11 => 1,);
+        return array (  102 => 32,  91 => 30,  87 => 29,  81 => 26,  76 => 24,  72 => 23,  68 => 22,  64 => 21,  55 => 17,  49 => 13,  47 => 12,  40 => 7,  37 => 6,  29 => 3,  11 => 1,);
     }
 }
