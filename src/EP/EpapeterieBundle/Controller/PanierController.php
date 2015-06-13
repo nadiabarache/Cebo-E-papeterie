@@ -126,12 +126,25 @@ class PanierController extends Controller
         
         $session->set('adresse',$adresse);
         return $this->redirect($this->generateUrl('ep_epapetrie_validation'));
+               
+                
     }
     
     public function validationAction()
     {
+        if($this->get('request')->getMethod() == 'POST')
+             $this->setLivraisonOnSession();
         
-        return $this->render('EPEpapetrieBundle:Panier:validation.html.twig');
+        $em = $this->getDoctrine()->getManager(); 
+        $session = $this->getRequest()->getSession();
+        $adresse = $session->get('adresse');
+        $produits = $em->getRepository('EPEpapetrieBundle:Produits')->findArray(array_keys($session->get('panier')));
+        $livraison = $em->getRepository('EPEpapetrieBundle:UtilisateursAdresses')->find($adresse['livraison']);
+         $facturation = $em->getRepository('EPEpapetrieBundle:UtilisateursAdresses')->find($adresse['facturation']);
+        return $this->render('EPEpapetrieBundle:Panier:validation.html.twig', array('produits' => $produits,
+                                                                                     'livraison' => $livraison,
+                                                                                     'facturation' => $facturation,
+                                                                                      'panier' => $session->get('panier')));
     }
     
     
