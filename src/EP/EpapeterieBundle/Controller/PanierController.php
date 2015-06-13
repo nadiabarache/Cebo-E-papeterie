@@ -4,6 +4,8 @@ namespace EP\EpapeterieBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use EP\EpapeterieBundle\Form\UtilisateursAdressesType;
+use EP\EpapeterieBundle\Entity\UtilisateursAdresses;
 
 class PanierController extends Controller
 {
@@ -72,14 +74,67 @@ class PanierController extends Controller
     }
 
    public function achatAction()
-    {
-        return $this->render('EPEpapetrieBundle:Panier:achat.html.twig');
+    {   $utilisateur = $this->container->get('security.context')->getToken()->getUser();
+        $entity = new UtilisateursAdresses();
+        $form = $this->createForm(new UtilisateursAdressesType(), $entity);
+        
+        if($this->get('request')->getMethod() == 'POST') 
+            {
+            $form->handleRequest($this->getRequest());
+              if($form->isValid()) {
+                  $em = $this->getDoctrine()->getManager();
+                  $entity->setUtilisateurs($utilisateur);
+                  $em->persist($entity);
+                  $em->flush();
+                  
+                   return $this->redirect($this->generateUrl('ep_epapetrie_achat'));
+                  
+              }
+            }
+
+        return $this->render('EPEpapetrieBundle:Panier:achat.html.twig', array('form' => $form->createView(), 'utilisateur' => $utilisateur));
     }
 
+    public function adresseSuppressionAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('EPEpapetrieBundle:UtilisateursAdresses')->find($id);
+        
+        if ($this->container->get('security.context')->getToken()->getUser() != $entity->getUtilisateurs() || !$entity)
+            return $this->redirect ($this->generateUrl ('ep_epapetrie_achat'));
+        
+        $em->remove($entity);
+        $em->flush();
+        
+        return $this->redirect ($this->generateUrl ('ep_epapetrie_achat'));
+    }
+    
+    public function setLivraisonOnSession()
+    {
+        $session = $this->getRequest()->getSession();
+        
+        if (!$session->has('adresse')) $session->set('adresse',array());
+        $adresse = $session->get('adresse');
+        
+        if ($this->getRequest()->request->get('livraison') != null && $this->getRequest()->request->get('facturation') != null)
+        {
+            $adresse['livraison'] = $this->getRequest()->request->get('livraison');
+            $adresse['facturation'] = $this->getRequest()->request->get('facturation');
+        } else {
+            return $this->redirect($this->generateUrl('ep_epapetrie_validation'));
+        }
+        
+        $session->set('adresse',$adresse);
+        return $this->redirect($this->generateUrl('ep_epapetrie_validation'));
+    }
+    
     public function validationAction()
     {
+        
         return $this->render('EPEpapetrieBundle:Panier:validation.html.twig');
     }
+    
+    
     
     
 

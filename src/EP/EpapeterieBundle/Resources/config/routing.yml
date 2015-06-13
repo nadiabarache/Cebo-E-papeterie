@@ -21,6 +21,7 @@ ep_epapetrie_panier:
 ep_epapetrie_achat:
    path:     /achat
    defaults: { _controller: EPEpapetrieBundle:Panier:achat}
+
 ep_epapetrie_validation:
    path:     /validation
    defaults: { _controller: EPEpapetrieBundle:Panier:validation}
@@ -36,3 +37,8 @@ ep_epapetrie_ajouter:
 ep_epapetrie_supprimer:
    path:     /supprimer/{id}
    defaults: { _controller: EPEpapetrieBundle:Panier:supprimer}
+
+ep_epapetrie_livraisonAdresseSuppression:
+   path:     /livraison/adresse/suppression/{id}
+   defaults: { _controller: EPEpapetrieBundle:Panier:adresseSuppression}  
+   

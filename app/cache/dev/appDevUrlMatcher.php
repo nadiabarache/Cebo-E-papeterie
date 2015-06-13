@@ -187,6 +187,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_supprimer')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\PanierController::supprimerAction',));
         }
 
+        // ep_epapetrie_livraisonAdresseSuppression
+        if (0 === strpos($pathinfo, '/livraison/adresse/suppression') && preg_match('#^/livraison/adresse/suppression/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_livraisonAdresseSuppression')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\PanierController::adresseSuppressionAction',));
+        }
+
         // homepage
         if ($pathinfo === '/app/example') {
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);

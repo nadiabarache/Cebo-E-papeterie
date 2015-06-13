@@ -1,6 +1,6 @@
 <?php
 
-/* :modulesUsed:infoUser.html.twig */
+/* ::modulesUsed/infoUser.html.twig */
 class __TwigTemplate_93f46bf1e9895e6cb448353e95308450821a083455668deb661be2581f4ae6fc extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -53,7 +53,7 @@ class __TwigTemplate_93f46bf1e9895e6cb448353e95308450821a083455668deb661be2581f4
 
     public function getTemplateName()
     {
-        return ":modulesUsed:infoUser.html.twig";
+        return "::modulesUsed/infoUser.html.twig";
     }
 
     public function isTraitable()

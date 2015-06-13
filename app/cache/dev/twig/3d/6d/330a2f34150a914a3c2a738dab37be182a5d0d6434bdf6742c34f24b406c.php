@@ -1,6 +1,6 @@
 <?php
 
-/* PagesPagesBundle:Default/pages/modulesUsed:menu.html.twig */
+/* PagesPagesBundle:Default:pages/modulesUsed/menu.html.twig */
 class __TwigTemplate_3d6d330a2f34150a914a3c2a738dab37be182a5d0d6434bdf6742c34f24b406c extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -34,7 +34,7 @@ class __TwigTemplate_3d6d330a2f34150a914a3c2a738dab37be182a5d0d6434bdf6742c34f24
 
     public function getTemplateName()
     {
-        return "PagesPagesBundle:Default/pages/modulesUsed:menu.html.twig";
+        return "PagesPagesBundle:Default:pages/modulesUsed/menu.html.twig";
     }
 
     public function isTraitable()

@@ -42,7 +42,7 @@ class __TwigTemplate_b74bdaa661e28833ed856b242158c310cb6a51707ea5142118a9b0653bb
         // line 11
         echo "
         <div class=\"row\">
-            <div class=\"span12\">
+            <div class=\"span12\"> 
                 <h2>Connexion</h2>
                 <div id=\"collapseOne\" class=\"accordion-body collapse in\">
                     <div class=\"accordion-inner\">
@@ -60,7 +60,7 @@ class __TwigTemplate_b74bdaa661e28833ed856b242158c310cb6a51707ea5142118a9b0653bb
 
                         </div>
 
-                        <div class=\"span4 offset2\">
+                        <div class=\"span4 offset2\" >
                             <h4>Connexion</h4>
                             <form action=\"";
         // line 30
