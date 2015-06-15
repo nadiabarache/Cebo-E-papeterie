@@ -192,9 +192,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_livraisonAdresseSuppression')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\PanierController::adresseSuppressionAction',));
         }
 
-        // homepage
-        if ($pathinfo === '/app/example') {
-            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
+        if (0 === strpos($pathinfo, '/ap')) {
+            // ep_epapetrie_validationCommande
+            if (0 === strpos($pathinfo, '/api/banque') && preg_match('#^/api/banque/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_validationCommande')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\CommandesController::validationCommandeAction',));
+            }
+
+            // homepage
+            if ($pathinfo === '/app/example') {
+                return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/log')) {

@@ -1,7 +1,5 @@
 <?php
-
 namespace EP\EpapeterieBundle\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use EP\EpapeterieBundle\Form\UtilisateursAdressesType;
@@ -132,7 +130,18 @@ class PanierController extends Controller
     
     public function validationAction()
     {
-        if($this->get('request')->getMethod() == 'POST')
+        
+        if ($this->get('request')->getMethod() == 'POST')
+            $this->setLivraisonOnSession();
+        
+        $em = $this->getDoctrine()->getManager();
+        $prepareCommande = $this->forward('EPEpapetrieBundle:Commandes:prepareCommande');
+        $commande = $em->getRepository('EPEpapetrieBundle:Commandes')->find($prepareCommande->getContent());
+    
+        return $this->render('EPEpapetrieBundle:Panier:validation.html.twig', array('commande' => $commande)); 
+        
+        
+       /*if($this->get('request')->getMethod() == 'POST')
              $this->setLivraisonOnSession();
         
         $em = $this->getDoctrine()->getManager(); 
@@ -141,10 +150,11 @@ class PanierController extends Controller
         $produits = $em->getRepository('EPEpapetrieBundle:Produits')->findArray(array_keys($session->get('panier')));
         $livraison = $em->getRepository('EPEpapetrieBundle:UtilisateursAdresses')->find($adresse['livraison']);
          $facturation = $em->getRepository('EPEpapetrieBundle:UtilisateursAdresses')->find($adresse['facturation']);
+         
         return $this->render('EPEpapetrieBundle:Panier:validation.html.twig', array('produits' => $produits,
                                                                                      'livraison' => $livraison,
                                                                                      'facturation' => $facturation,
-                                                                                      'panier' => $session->get('panier')));
+                                                                                    'panier' => $session->get('panier'))); */
     }
     
     

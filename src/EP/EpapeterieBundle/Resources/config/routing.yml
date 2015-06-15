@@ -40,5 +40,9 @@ ep_epapetrie_supprimer:
 
 ep_epapetrie_livraisonAdresseSuppression:
    path:     /livraison/adresse/suppression/{id}
-   defaults: { _controller: EPEpapetrieBundle:Panier:adresseSuppression}  
+   defaults: { _controller: EPEpapetrieBundle:Panier:adresseSuppression}
+
+ep_epapetrie_validationCommande:
+   path:     /api/banque/{id}
+   defaults: { _controller: EPEpapetrieBundle:Commandes:validationCommande}
    
