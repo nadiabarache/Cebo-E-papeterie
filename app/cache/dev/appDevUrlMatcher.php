@@ -127,14 +127,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // users_utilisateur_homepage
-        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'users_utilisateur_homepage')), array (  '_controller' => 'Users\\UtilisateurBundle\\Controller\\DefaultController::indexAction',));
-        }
+        if (0 === strpos($pathinfo, '/p')) {
+            // users_utilisateur_facture
+            if ($pathinfo === '/profile/factures') {
+                return array (  '_controller' => 'UsersUtilisateurBundle:Utilisateurs:facture',  '_route' => 'users_utilisateur_facture',);
+            }
 
-        // pages_pages_page
-        if (0 === strpos($pathinfo, '/page') && preg_match('#^/page/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'pages_pages_page')), array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesController::pageAction',));
+            // pages_pages_page
+            if (0 === strpos($pathinfo, '/page') && preg_match('#^/page/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'pages_pages_page')), array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesController::pageAction',));
+            }
+
         }
 
         // ep_epapetrie_homepage

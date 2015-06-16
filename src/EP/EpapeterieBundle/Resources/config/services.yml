@@ -1,4 +1,9 @@
 services:
+
+    setNewReference:
+      class: EP\EpapeterieBundle\Services\GetReference
+      arguments: [@security.context, @doctrine.orm.entity_manager]
+    
     tva:
         class: EP\EpapeterieBundle\Twig\Extension\TvaExtension
         tags:

@@ -103,7 +103,7 @@ class CommandesController extends Controller
          *  Methode remplacant API Banque
          */
         $commande->setValider(1);
-        $commande->setReference(1); //service
+        $commande->setReference($this->container->get('setNewReference')->reference()); //service
         $em->flush();
         
         $session = $this->getRequest()->getSession();
@@ -112,7 +112,7 @@ class CommandesController extends Controller
           $session->remove('commande');
           
          $this->get('session')->getFlashBag()->add('success','Votre commande est validé avec succès');
-        return $this->redirect($this->generateUrl('ep_epapetrie_allProducts'));
+        return $this->redirect($this->generateUrl('users_utilisateur_facture'));
           
           
         
