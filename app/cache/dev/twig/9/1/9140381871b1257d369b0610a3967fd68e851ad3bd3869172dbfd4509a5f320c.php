@@ -1,6 +1,6 @@
 <?php
 
-/* ::modulesUsed/panier.html.twig */
+/* :modulesUsed:panier.html.twig */
 class __TwigTemplate_9140381871b1257d369b0610a3967fd68e851ad3bd3869172dbfd4509a5f320c extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -39,7 +39,7 @@ class __TwigTemplate_9140381871b1257d369b0610a3967fd68e851ad3bd3869172dbfd4509a5
 
     public function getTemplateName()
     {
-        return "::modulesUsed/panier.html.twig";
+        return ":modulesUsed:panier.html.twig";
     }
 
     public function isTraitable()
