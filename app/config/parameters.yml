@@ -14,6 +14,6 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 twig:
     globals:
-        telephone: 01 49 29 47 00
-        fax:       02 35 00 00 00
-        adresse:   108 avenue de la république - Paris 75 011 
+        telephone: '01 49 29 47 00'
+        fax: '02 35 00 00 00'
+        adresse: '108 avenue de la république - Paris 75 011'

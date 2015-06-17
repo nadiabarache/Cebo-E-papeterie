@@ -128,9 +128,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         if (0 === strpos($pathinfo, '/p')) {
-            // users_utilisateur_facture
-            if ($pathinfo === '/profile/factures') {
-                return array (  '_controller' => 'UsersUtilisateurBundle:Utilisateurs:facture',  '_route' => 'users_utilisateur_facture',);
+            if (0 === strpos($pathinfo, '/profile/factures')) {
+                // users_utilisateur_facture
+                if ($pathinfo === '/profile/factures') {
+                    return array (  '_controller' => 'Users\\UtilisateurBundle\\Controller\\UtilisateursController::factureAction',  '_route' => 'users_utilisateur_facture',);
+                }
+
+                // users_utilisateur_facturePDF
+                if (0 === strpos($pathinfo, '/profile/factures/pdf') && preg_match('#^/profile/factures/pdf/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'users_utilisateur_facturePDF')), array (  '_controller' => 'Users\\UtilisateurBundle\\Controller\\UtilisateursController::facturePDFAction',));
+                }
+
             }
 
             // pages_pages_page
@@ -212,8 +220,14 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             if (0 === strpos($pathinfo, '/login')) {
                 // fos_user_security_login
                 if ($pathinfo === '/login') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                        goto not_fos_user_security_login;
+                    }
+
                     return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'fos_user_security_login',);
                 }
+                not_fos_user_security_login:
 
                 // fos_user_security_check
                 if ($pathinfo === '/login_check') {
@@ -230,8 +244,14 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             // fos_user_security_logout
             if ($pathinfo === '/logout') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_fos_user_security_logout;
+                }
+
                 return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'fos_user_security_logout',);
             }
+            not_fos_user_security_logout:
 
         }
 
@@ -253,8 +273,14 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             // fos_user_profile_edit
             if ($pathinfo === '/profile/edit') {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_fos_user_profile_edit;
+                }
+
                 return array (  '_controller' => 'FOS\\UserBundle\\Controller\\ProfileController::editAction',  '_route' => 'fos_user_profile_edit',);
             }
+            not_fos_user_profile_edit:
 
         }
 
@@ -262,12 +288,18 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             if (0 === strpos($pathinfo, '/register')) {
                 // fos_user_registration_register
                 if (rtrim($pathinfo, '/') === '/register') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                        goto not_fos_user_registration_register;
+                    }
+
                     if (substr($pathinfo, -1) !== '/') {
                         return $this->redirect($pathinfo.'/', 'fos_user_registration_register');
                     }
 
                     return array (  '_controller' => 'FOS\\UserBundle\\Controller\\RegistrationController::registerAction',  '_route' => 'fos_user_registration_register',);
                 }
+                not_fos_user_registration_register:
 
                 if (0 === strpos($pathinfo, '/register/c')) {
                     // fos_user_registration_check_email

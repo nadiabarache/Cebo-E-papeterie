@@ -33,9 +33,6 @@ class appDevDebugProjectContainer extends Container
         $this->services =
         $this->scopedServices =
         $this->scopeStacks = array();
-
-        $this->set('service_container', $this);
-
         $this->scopes = array('request' => 'container');
         $this->scopeChildren = array('request' => array());
         $this->methodMap = array(
@@ -145,6 +142,7 @@ class appDevDebugProjectContainer extends Container
             'fragment.renderer.hinclude' => 'getFragment_Renderer_HincludeService',
             'fragment.renderer.inline' => 'getFragment_Renderer_InlineService',
             'fragment.renderer.ssi' => 'getFragment_Renderer_SsiService',
+            'html2pdf_factory' => 'getHtml2pdfFactoryService',
             'http_kernel' => 'getHttpKernelService',
             'kernel' => 'getKernelService',
             'locale_listener' => 'getLocaleListenerService',
@@ -290,6 +288,7 @@ class appDevDebugProjectContainer extends Container
             'validator.builder' => 'getValidator_BuilderService',
             'validator.email' => 'getValidator_EmailService',
             'validator.expression' => 'getValidator_ExpressionService',
+            'var_dumper.cli_dumper' => 'getVarDumper_CliDumperService',
             'var_dumper.cloner' => 'getVarDumper_ClonerService',
             'web_profiler.controller.exception' => 'getWebProfiler_Controller_ExceptionService',
             'web_profiler.controller.profiler' => 'getWebProfiler_Controller_ProfilerService',
@@ -458,7 +457,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getDataCollector_DumpService()
     {
-        return $this->services['data_collector.dump'] = new \Symfony\Component\HttpKernel\DataCollector\DumpDataCollector($this->get('debug.stopwatch', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL, 'UTF-8');
+        return $this->services['data_collector.dump'] = new \Symfony\Component\HttpKernel\DataCollector\DumpDataCollector($this->get('debug.stopwatch', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL, 'UTF-8', $this->get('request_stack'), NULL);
     }
 
     /**
@@ -536,7 +535,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getDebug_DebugHandlersListenerService()
     {
-        return $this->services['debug.debug_handlers_listener'] = new \Symfony\Component\HttpKernel\EventListener\DebugHandlersListener('', $this->get('monolog.logger.php', ContainerInterface::NULL_ON_INVALID_REFERENCE), '', NULL, true, NULL);
+        return $this->services['debug.debug_handlers_listener'] = new \Symfony\Component\HttpKernel\EventListener\DebugHandlersListener('', $this->get('monolog.logger.php', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL, NULL, true, NULL);
     }
 
     /**
@@ -725,6 +724,7 @@ class appDevDebugProjectContainer extends Container
         $d->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
         $d->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
         $d->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
+        $d->setQuoteStrategy(new \Doctrine\ORM\Mapping\DefaultQuoteStrategy());
         $d->setEntityListenerResolver($this->get('doctrine.orm.default_entity_listener_resolver'));
 
         $this->services['doctrine.orm.default_entity_manager'] = $instance = \Doctrine\ORM\EntityManager::create($this->get('doctrine.dbal.default_connection'), $d);
@@ -1588,7 +1588,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getFosUser_Security_LoginManagerService()
     {
-        return $this->services['fos_user.security.login_manager'] = new \FOS\UserBundle\Security\LoginManager($this->get('security.context'), $this->get('security.user_checker'), $this->get('security.authentication.session_strategy'), $this);
+        return $this->services['fos_user.security.login_manager'] = new \FOS\UserBundle\Security\LoginManager($this->get('security.token_storage'), $this->get('security.user_checker'), $this->get('security.authentication.session_strategy'), $this);
     }
 
     /**
@@ -1757,6 +1757,19 @@ class appDevDebugProjectContainer extends Container
         $instance->setFragmentPath('/_fragment');
 
         return $instance;
+    }
+
+    /**
+     * Gets the 'html2pdf_factory' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Ensepar\Html2pdfBundle\Factory\Html2pdfFactory A Ensepar\Html2pdfBundle\Factory\Html2pdfFactory instance.
+     */
+    protected function getHtml2pdfFactoryService()
+    {
+        return $this->services['html2pdf_factory'] = new \Ensepar\Html2pdfBundle\Factory\Html2pdfFactory('P', 'A4', 'en', true, 'UTF-8', array(0 => 10, 1 => 15, 2 => 10, 3 => 15));
     }
 
     /**
@@ -2409,7 +2422,7 @@ class appDevDebugProjectContainer extends Container
         $i = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $d, array(), $b);
         $i->setOptions(array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'));
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($a, array(0 => $this->get('fos_user.user_provider.username')), 'main', $b, $c), 2 => $g, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($a, $f, $this->get('security.authentication.session_strategy'), $d, 'main', $h, $i, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $b, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($a, '558070ebb6dee', $b, $f), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($a, $this->get('security.authentication.trust_resolver'), $d, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $d, '/login', false), NULL, NULL, $b));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($a, array(0 => $this->get('fos_user.user_provider.username')), 'main', $b, $c), 2 => $g, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($a, $f, $this->get('security.authentication.session_strategy'), $d, 'main', $h, $i, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $b, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($a, '5580bbd7b1a24', $b, $f), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($a, $this->get('security.authentication.trust_resolver'), $d, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $d, '/login', false), NULL, NULL, $b));
     }
 
     /**
@@ -3811,6 +3824,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addPath(($this->targetDirs[3].'/vendor/doctrine/doctrine-bundle/Resources/views'), 'Doctrine');
         $instance->addPath(($this->targetDirs[3].'/src/EP/EpapeterieBundle/Resources/views'), 'EPEpapetrie');
         $instance->addPath(($this->targetDirs[3].'/src/Pages/PagesBundle/Resources/views'), 'PagesPages');
+        $instance->addPath(($this->targetDirs[2].'/Resources/FOSUserBundle/views'), 'FOSUser');
         $instance->addPath(($this->targetDirs[3].'/vendor/friendsofsymfony/user-bundle/Resources/views'), 'FOSUser');
         $instance->addPath(($this->targetDirs[3].'/src/Users/UtilisateurBundle/Resources/views'), 'UsersUtilisateur');
         $instance->addPath(($this->targetDirs[3].'/vendor/symfony/symfony/src/Symfony/Bundle/DebugBundle/Resources/views'), 'Debug');
@@ -3914,6 +3928,19 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'var_dumper.cli_dumper' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Symfony\Component\VarDumper\Dumper\CliDumper A Symfony\Component\VarDumper\Dumper\CliDumper instance.
+     */
+    protected function getVarDumper_CliDumperService()
+    {
+        return $this->services['var_dumper.cli_dumper'] = new \Symfony\Component\VarDumper\Dumper\CliDumper(NULL, 'UTF-8');
+    }
+
+    /**
      * Gets the 'var_dumper.cloner' service.
      *
      * This service is shared.
@@ -3980,7 +4007,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getWebProfiler_DebugToolbarService()
     {
-        return $this->services['web_profiler.debug_toolbar'] = new \Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener($this->get('twig'), false, 2, 'bottom', $this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), '^/bundles|^/_wdt');
+        return $this->services['web_profiler.debug_toolbar'] = new \Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener($this->get('twig'), false, 2, 'bottom', $this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), '^/(app(_[\\w]+)?\\.php/)?_wdt');
     }
 
     /**
@@ -4168,7 +4195,7 @@ class appDevDebugProjectContainer extends Container
         $b = $this->get('security.user_checker');
         $c = $this->get('security.encoder_factory');
 
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'main', $c, true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('558070ebb6dee'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'demo_secured_area', $c, true)), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'main', $c, true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('5580bbd7b1a24'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'demo_secured_area', $c, true)), true);
 
         $instance->setEventDispatcher($this->get('debug.event_dispatcher'));
 
@@ -4419,7 +4446,7 @@ class appDevDebugProjectContainer extends Container
             'kernel.root_dir' => $this->targetDirs[2],
             'kernel.environment' => 'dev',
             'kernel.debug' => true,
-            'kernel.name' => 'app',
+            'kernel.name' => 'ap_',
             'kernel.cache_dir' => __DIR__,
             'kernel.logs_dir' => ($this->targetDirs[2].'/logs'),
             'kernel.bundles' => array(
@@ -4437,6 +4464,7 @@ class appDevDebugProjectContainer extends Container
                 'FOSUserBundle' => 'FOS\\UserBundle\\FOSUserBundle',
                 'UsersUtilisateurBundle' => 'Users\\UtilisateurBundle\\UsersUtilisateurBundle',
                 'DoctrineFixturesBundle' => 'Doctrine\\Bundle\\FixturesBundle\\DoctrineFixturesBundle',
+                'EnseparHtml2pdfBundle' => 'Ensepar\\Html2pdfBundle\\EnseparHtml2pdfBundle',
                 'DebugBundle' => 'Symfony\\Bundle\\DebugBundle\\DebugBundle',
                 'AcmeDemoBundle' => 'Acme\\DemoBundle\\AcmeDemoBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
@@ -4995,6 +5023,8 @@ class appDevDebugProjectContainer extends Container
             'doctrine.orm.listeners.attach_entity_listeners.class' => 'Doctrine\\ORM\\Tools\\AttachEntityListenersListener',
             'doctrine.orm.naming_strategy.default.class' => 'Doctrine\\ORM\\Mapping\\DefaultNamingStrategy',
             'doctrine.orm.naming_strategy.underscore.class' => 'Doctrine\\ORM\\Mapping\\UnderscoreNamingStrategy',
+            'doctrine.orm.quote_strategy.default.class' => 'Doctrine\\ORM\\Mapping\\DefaultQuoteStrategy',
+            'doctrine.orm.quote_strategy.ansi.class' => 'Doctrine\\ORM\\Mapping\\AnsiQuoteStrategy',
             'doctrine.orm.entity_listener_resolver.class' => 'Doctrine\\ORM\\Mapping\\DefaultEntityListenerResolver',
             'doctrine.orm.second_level_cache.default_cache_factory.class' => 'Doctrine\\ORM\\Cache\\DefaultCacheFactory',
             'doctrine.orm.second_level_cache.default_region.class' => 'Doctrine\\ORM\\Cache\\Region\\DefaultRegion',
@@ -5056,6 +5086,17 @@ class appDevDebugProjectContainer extends Container
             'fos_user.resetting.form.validation_groups' => array(
                 0 => 'ResetPassword',
                 1 => 'Default',
+            ),
+            'html2pdf.orientation' => 'P',
+            'html2pdf.format' => 'A4',
+            'html2pdf.lang' => 'en',
+            'html2pdf.unicode' => true,
+            'html2pdf.encoding' => 'UTF-8',
+            'html2pdf.margin' => array(
+                0 => 10,
+                1 => 15,
+                2 => 10,
+                3 => 15,
             ),
             'web_profiler.controller.profiler.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController',
             'web_profiler.controller.router.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\RouterController',

@@ -1,3 +1,6 @@
 users_utilisateur_facture:
     path:     /profile/factures
     defaults: { _controller: UsersUtilisateurBundle:Utilisateurs:facture }
+users_utilisateur_facturePDF:
+    path:     /profile/factures/pdf/{id}
+    defaults: { _controller: UsersUtilisateurBundle:Utilisateurs:facturePDF }

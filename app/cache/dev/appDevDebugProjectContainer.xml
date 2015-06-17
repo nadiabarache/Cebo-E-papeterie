@@ -4,7 +4,7 @@
     <parameter key="kernel.root_dir">/var/www/E-Papeterie/app</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.name">app</parameter>
+    <parameter key="kernel.name">ap_</parameter>
     <parameter key="kernel.cache_dir">/var/www/E-Papeterie/app/cache/dev</parameter>
     <parameter key="kernel.logs_dir">/var/www/E-Papeterie/app/logs</parameter>
     <parameter key="kernel.bundles" type="collection">
@@ -22,6 +22,7 @@
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
       <parameter key="UsersUtilisateurBundle">Users\UtilisateurBundle\UsersUtilisateurBundle</parameter>
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
+      <parameter key="EnseparHtml2pdfBundle">Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle</parameter>
       <parameter key="DebugBundle">Symfony\Bundle\DebugBundle\DebugBundle</parameter>
       <parameter key="AcmeDemoBundle">Acme\DemoBundle\AcmeDemoBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
@@ -562,6 +563,8 @@
     <parameter key="doctrine.orm.listeners.attach_entity_listeners.class">Doctrine\ORM\Tools\AttachEntityListenersListener</parameter>
     <parameter key="doctrine.orm.naming_strategy.default.class">Doctrine\ORM\Mapping\DefaultNamingStrategy</parameter>
     <parameter key="doctrine.orm.naming_strategy.underscore.class">Doctrine\ORM\Mapping\UnderscoreNamingStrategy</parameter>
+    <parameter key="doctrine.orm.quote_strategy.default.class">Doctrine\ORM\Mapping\DefaultQuoteStrategy</parameter>
+    <parameter key="doctrine.orm.quote_strategy.ansi.class">Doctrine\ORM\Mapping\AnsiQuoteStrategy</parameter>
     <parameter key="doctrine.orm.entity_listener_resolver.class">Doctrine\ORM\Mapping\DefaultEntityListenerResolver</parameter>
     <parameter key="doctrine.orm.second_level_cache.default_cache_factory.class">Doctrine\ORM\Cache\DefaultCacheFactory</parameter>
     <parameter key="doctrine.orm.second_level_cache.default_region.class">Doctrine\ORM\Cache\Region\DefaultRegion</parameter>
@@ -623,6 +626,17 @@
     <parameter key="fos_user.resetting.form.validation_groups" type="collection">
       <parameter>ResetPassword</parameter>
       <parameter>Default</parameter>
+    </parameter>
+    <parameter key="html2pdf.orientation">P</parameter>
+    <parameter key="html2pdf.format">A4</parameter>
+    <parameter key="html2pdf.lang">en</parameter>
+    <parameter key="html2pdf.unicode">true</parameter>
+    <parameter key="html2pdf.encoding">UTF-8</parameter>
+    <parameter key="html2pdf.margin" type="collection">
+      <parameter>10</parameter>
+      <parameter>15</parameter>
+      <parameter>10</parameter>
+      <parameter>15</parameter>
     </parameter>
     <parameter key="web_profiler.controller.profiler.class">Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController</parameter>
     <parameter key="web_profiler.controller.router.class">Symfony\Bundle\WebProfilerBundle\Controller\RouterController</parameter>
@@ -2868,7 +2882,7 @@
       <tag name="monolog.logger" channel="php"/>
       <argument></argument>
       <argument type="service" id="monolog.logger.php" on-invalid="null"/>
-      <argument></argument>
+      <argument>null</argument>
       <argument>null</argument>
       <argument>true</argument>
       <argument>null</argument>
@@ -3063,7 +3077,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>558070ebb6dee</argument>
+            <argument>5580bbd7b1a24</argument>
           </service>
         </argument>
         <argument type="service">
@@ -3356,7 +3370,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>558070ebb6dee</argument>
+            <argument>5580bbd7b1a24</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -4039,6 +4053,11 @@
               <service class="Doctrine\ORM\Mapping\DefaultNamingStrategy" public="false"/>
             </argument>
           </call>
+          <call method="setQuoteStrategy">
+            <argument type="service">
+              <service class="Doctrine\ORM\Mapping\DefaultQuoteStrategy" public="false"/>
+            </argument>
+          </call>
           <call method="setEntityListenerResolver">
             <argument type="service" id="doctrine.orm.default_entity_listener_resolver"/>
           </call>
@@ -4116,7 +4135,7 @@
       <argument type="service" id="fos_user.user_manager"/>
     </service>
     <service id="fos_user.security.login_manager" class="FOS\UserBundle\Security\LoginManager">
-      <argument type="service" id="security.context"/>
+      <argument type="service" id="security.token_storage"/>
       <argument type="service" id="security.user_checker"/>
       <argument type="service" id="security.authentication.session_strategy"/>
       <argument type="service" id="service_container"/>
@@ -4202,11 +4221,26 @@
       <argument type="service" id="router"/>
       <argument>86400</argument>
     </service>
+    <service id="html2pdf_factory" class="Ensepar\Html2pdfBundle\Factory\Html2pdfFactory">
+      <argument>P</argument>
+      <argument>A4</argument>
+      <argument>en</argument>
+      <argument>true</argument>
+      <argument>UTF-8</argument>
+      <argument type="collection">
+        <argument>10</argument>
+        <argument>15</argument>
+        <argument>10</argument>
+        <argument>15</argument>
+      </argument>
+    </service>
     <service id="data_collector.dump" class="Symfony\Component\HttpKernel\DataCollector\DumpDataCollector">
       <tag name="data_collector" id="dump" template="@Debug/Profiler/dump.html.twig"/>
       <argument type="service" id="debug.stopwatch" on-invalid="ignore"/>
       <argument>null</argument>
       <argument>UTF-8</argument>
+      <argument type="service" id="request_stack"/>
+      <argument>null</argument>
     </service>
     <service id="debug.dump_listener" class="Symfony\Component\HttpKernel\EventListener\DumpListener">
       <tag name="kernel.event_subscriber"/>
@@ -4220,6 +4254,10 @@
       <call method="setMaxString">
         <argument>-1</argument>
       </call>
+    </service>
+    <service id="var_dumper.cli_dumper" class="Symfony\Component\VarDumper\Dumper\CliDumper">
+      <argument>null</argument>
+      <argument>UTF-8</argument>
     </service>
     <service id="twig.extension.acme.demo" class="Acme\DemoBundle\Twig\Extension\DemoExtension" public="false">
       <tag name="twig.extension"/>
@@ -4310,7 +4348,7 @@
       <argument>2</argument>
       <argument>bottom</argument>
       <argument type="service" id="router" on-invalid="ignore"/>
-      <argument>^/bundles|^/_wdt</argument>
+      <argument>^/(app(_[\w]+)?\.php/)?_wdt</argument>
     </service>
     <service id="sensio_distribution.webconfigurator" class="Sensio\Bundle\DistributionBundle\Configurator\Configurator">
       <argument>/var/www/E-Papeterie/app</argument>
@@ -4580,6 +4618,10 @@
       <call method="addPath">
         <argument>/var/www/E-Papeterie/src/Pages/PagesBundle/Resources/views</argument>
         <argument>PagesPages</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/E-Papeterie/app/Resources/FOSUserBundle/views</argument>
+        <argument>FOSUser</argument>
       </call>
       <call method="addPath">
         <argument>/var/www/E-Papeterie/vendor/friendsofsymfony/user-bundle/Resources/views</argument>
