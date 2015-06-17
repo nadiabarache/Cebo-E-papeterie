@@ -43,8 +43,13 @@ class ProduitsController extends Controller
         else
             {$panier = false;}
        
-     $produits = $em->getRepository('EPEpapetrieBundle:Produits')->findAll();
-     return $this->render('EPEpapetrieBundle:Products:allProducts.html.twig', array('produits' => $produits, 'panier' => $panier));
+     $findProduits = $em->getRepository('EPEpapetrieBundle:Produits')->findAll();
+     
+      $produits  = $this->get('knp_paginator')->paginate( $findProduits, $this->get('request')->query->get('page', 1), 2);;
+
+    
+      
+      return $this->render('EPEpapetrieBundle:Products:allProducts.html.twig', array('produits' => $produits, 'panier' => $panier));
 
     }
       public function rechercheAction() 

@@ -35,7 +35,10 @@ class __TwigTemplate_93f46bf1e9895e6cb448353e95308450821a083455668deb661be2581f4
         echo $this->env->getExtension('routing')->getPath("fos_user_change_password");
         echo " \">Changer mon mot de passe</a></li>
             <li>
-                <a href=\"\">Mes Factures</a>
+                <a href=\"";
+        // line 11
+        echo $this->env->getExtension('routing')->getPath("users_utilisateur_facture");
+        echo "\">Mes Factures</a>
             </li>
             <li>
                 <a href=\"\">Mes adresses</a>
@@ -63,6 +66,6 @@ class __TwigTemplate_93f46bf1e9895e6cb448353e95308450821a083455668deb661be2581f4
 
     public function getDebugInfo()
     {
-        return array (  46 => 17,  35 => 9,  30 => 7,  24 => 4,  19 => 1,);
+        return array (  49 => 17,  40 => 11,  35 => 9,  30 => 7,  24 => 4,  19 => 1,);
     }
 }

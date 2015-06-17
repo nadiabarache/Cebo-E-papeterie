@@ -119,9 +119,14 @@ class __TwigTemplate_cbecf8e52acf8db9d392978802f834dc28eca11c2ff5079611744ccdfd8
             // line 40
             echo "
             </ul>
-
+             <div class=\"navigation\">
+               ";
+            // line 43
+            echo $this->env->getExtension('knp_pagination')->render((isset($context["produits"]) ? $context["produits"] : $this->getContext($context, "produits")));
+            echo "
+             </div>
             <div class=\"pagination\">
-                <ul>
+              <!--  <ul>
                     <li class=\"disabled\"><span>Précédent</span></li>
                     <li class=\"disabled\"><span>1</span></li>
                     <li><a href=\"#\">2</a></li>
@@ -130,16 +135,16 @@ class __TwigTemplate_cbecf8e52acf8db9d392978802f834dc28eca11c2ff5079611744ccdfd8
                     <li><a href=\"#\">5</a></li>
                     <li><a href=\"#\">Suivant</a></li>
                 </ul>
-            </div>
+            </div> -->
                 
                 ";
         } else {
-            // line 56
+            // line 58
             echo "                     Aucun produit
                 
                 ";
         }
-        // line 59
+        // line 61
         echo "
         </div>
     </div>
@@ -161,6 +166,6 @@ class __TwigTemplate_cbecf8e52acf8db9d392978802f834dc28eca11c2ff5079611744ccdfd8
 
     public function getDebugInfo()
     {
-        return array (  143 => 59,  138 => 56,  120 => 40,  110 => 35,  104 => 33,  102 => 32,  98 => 31,  94 => 30,  90 => 29,  83 => 27,  78 => 24,  74 => 23,  70 => 21,  68 => 20,  64 => 18,  61 => 17,  58 => 16,  55 => 15,  52 => 14,  49 => 13,  46 => 12,  43 => 11,  40 => 10,  38 => 9,  31 => 4,  28 => 3,  11 => 1,);
+        return array (  148 => 61,  143 => 58,  125 => 43,  120 => 40,  110 => 35,  104 => 33,  102 => 32,  98 => 31,  94 => 30,  90 => 29,  83 => 27,  78 => 24,  74 => 23,  70 => 21,  68 => 20,  64 => 18,  61 => 17,  58 => 16,  55 => 15,  52 => 14,  49 => 13,  46 => 12,  43 => 11,  40 => 10,  38 => 9,  31 => 4,  28 => 3,  11 => 1,);
     }
 }

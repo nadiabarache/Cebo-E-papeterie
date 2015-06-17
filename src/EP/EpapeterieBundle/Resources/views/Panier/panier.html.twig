@@ -31,7 +31,7 @@
                                 <th>Total HT</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        
                              {% if produits|length == 0 %}
                         <tr>
                             <td colspan="4"><center>Aucun articles dans votre panier</center></td>
@@ -54,11 +54,11 @@
                             <td>{{ produit.prix * panier[produit.id] }} €</td>
                         </form>
                     </tr>
-                     {% set totalHT = totalHT + (produit.prix * panier[produit.id] ) %}
-                     {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]|tva(produit.tva.multiplicate)) %}
-                      {% set refTva = refTva|merge({ ('%' ~ produit.tva.valeur) : refTva['%' ~ produit.tva.valeur] + ( produit.prix * panier[produit.id])|montantTva(produit.tva.multiplicate) }) %}
+                     {% set totalHT = totalHT + (produit.prix * panier[produit.id]) %}
+                     {% set totalTTC = totalTTC + (produit.prix * panier[produit.id])|tva(produit.tva.multiplicate) %}
+                     {% set refTva = refTva|merge({ ('%' ~ produit.tva.valeur) : refTva['%' ~ produit.tva.valeur] + ( produit.prix * panier[produit.id])|montantTva(produit.tva.multiplicate) }) %}
                     {% endfor %}
-                        </tbody>
+                        
                     </table>
                 </form>
                 {% if produits|length != 0 %}

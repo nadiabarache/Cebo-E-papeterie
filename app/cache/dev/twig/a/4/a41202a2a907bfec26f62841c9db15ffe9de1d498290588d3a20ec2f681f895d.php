@@ -85,7 +85,7 @@ class __TwigTemplate_a41202a2a907bfec26f62841c9db15ffe9de1d498290588d3a20ec2f681
                                 <th>Total HT</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        
                              ";
         // line 35
         if ((twig_length_filter($this->env, (isset($context["produits"]) ? $context["produits"] : $this->getContext($context, "produits"))) == 0)) {
@@ -156,9 +156,9 @@ class __TwigTemplate_a41202a2a907bfec26f62841c9db15ffe9de1d498290588d3a20ec2f681
             $context["totalHT"] = ((isset($context["totalHT"]) ? $context["totalHT"] : $this->getContext($context, "totalHT")) + ($this->getAttribute($context["produit"], "prix", array()) * $this->getAttribute((isset($context["panier"]) ? $context["panier"] : $this->getContext($context, "panier")), $this->getAttribute($context["produit"], "id", array()), array(), "array")));
             // line 58
             echo "                     ";
-            $context["totalTTC"] = ((isset($context["totalTTC"]) ? $context["totalTTC"] : $this->getContext($context, "totalTTC")) + ($this->getAttribute($context["produit"], "prix", array()) * $this->env->getExtension('tva_extension')->calculTva($this->getAttribute((isset($context["panier"]) ? $context["panier"] : $this->getContext($context, "panier")), $this->getAttribute($context["produit"], "id", array()), array(), "array"), $this->getAttribute($this->getAttribute($context["produit"], "tva", array()), "multiplicate", array()))));
+            $context["totalTTC"] = ((isset($context["totalTTC"]) ? $context["totalTTC"] : $this->getContext($context, "totalTTC")) + $this->env->getExtension('tva_extension')->calculTva(($this->getAttribute($context["produit"], "prix", array()) * $this->getAttribute((isset($context["panier"]) ? $context["panier"] : $this->getContext($context, "panier")), $this->getAttribute($context["produit"], "id", array()), array(), "array")), $this->getAttribute($this->getAttribute($context["produit"], "tva", array()), "multiplicate", array())));
             // line 59
-            echo "                      ";
+            echo "                     ";
             $context["refTva"] = twig_array_merge((isset($context["refTva"]) ? $context["refTva"] : $this->getContext($context, "refTva")), array(("%" . $this->getAttribute($this->getAttribute($context["produit"], "tva", array()), "valeur", array())) => ($this->getAttribute((isset($context["refTva"]) ? $context["refTva"] : $this->getContext($context, "refTva")), ("%" . $this->getAttribute($this->getAttribute($context["produit"], "tva", array()), "valeur", array())), array(), "array") + $this->env->getExtension('montant_tva_extension')->montantTva(($this->getAttribute($context["produit"], "prix", array()) * $this->getAttribute((isset($context["panier"]) ? $context["panier"] : $this->getContext($context, "panier")), $this->getAttribute($context["produit"], "id", array()), array(), "array")), $this->getAttribute($this->getAttribute($context["produit"], "tva", array()), "multiplicate", array())))));
             // line 60
             echo "                    ";
@@ -167,7 +167,7 @@ class __TwigTemplate_a41202a2a907bfec26f62841c9db15ffe9de1d498290588d3a20ec2f681
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['produit'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 61
-        echo "                        </tbody>
+        echo "                        
                     </table>
                 </form>
                 ";

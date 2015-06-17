@@ -22,7 +22,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Users\UtilisateurBundle\UsersUtilisateurBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle()
+            new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
