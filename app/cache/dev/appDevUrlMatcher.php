@@ -127,25 +127,82 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        if (0 === strpos($pathinfo, '/p')) {
-            if (0 === strpos($pathinfo, '/profile/factures')) {
-                // users_utilisateur_facture
-                if ($pathinfo === '/profile/factures') {
-                    return array (  '_controller' => 'Users\\UtilisateurBundle\\Controller\\UtilisateursController::factureAction',  '_route' => 'users_utilisateur_facture',);
-                }
-
-                // users_utilisateur_facturePDF
-                if (0 === strpos($pathinfo, '/profile/factures/pdf') && preg_match('#^/profile/factures/pdf/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'users_utilisateur_facturePDF')), array (  '_controller' => 'Users\\UtilisateurBundle\\Controller\\UtilisateursController::facturePDFAction',));
-                }
-
+        if (0 === strpos($pathinfo, '/profile/factures')) {
+            // users_utilisateur_facture
+            if ($pathinfo === '/profile/factures') {
+                return array (  '_controller' => 'Users\\UtilisateurBundle\\Controller\\UtilisateursController::factureAction',  '_route' => 'users_utilisateur_facture',);
             }
 
-            // pages_pages_page
-            if (0 === strpos($pathinfo, '/page') && preg_match('#^/page/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'pages_pages_page')), array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesController::pageAction',));
+            // users_utilisateur_facturePDF
+            if (0 === strpos($pathinfo, '/profile/factures/pdf') && preg_match('#^/profile/factures/pdf/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'users_utilisateur_facturePDF')), array (  '_controller' => 'Users\\UtilisateurBundle\\Controller\\UtilisateursController::facturePDFAction',));
             }
 
+        }
+
+        if (0 === strpos($pathinfo, '/admin/pages')) {
+            // adminPages
+            if (rtrim($pathinfo, '/') === '/admin/pages') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'adminPages');
+                }
+
+                return array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesAdminController::indexAction',  '_route' => 'adminPages',);
+            }
+
+            // adminPages_show
+            if (preg_match('#^/admin/pages/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'adminPages_show')), array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesAdminController::showAction',));
+            }
+
+            // adminPages_new
+            if ($pathinfo === '/admin/pages/new') {
+                return array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesAdminController::newAction',  '_route' => 'adminPages_new',);
+            }
+
+            // adminPages_create
+            if ($pathinfo === '/admin/pages/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_adminPages_create;
+                }
+
+                return array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesAdminController::createAction',  '_route' => 'adminPages_create',);
+            }
+            not_adminPages_create:
+
+            // adminPages_edit
+            if (preg_match('#^/admin/pages/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'adminPages_edit')), array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesAdminController::editAction',));
+            }
+
+            // adminPages_update
+            if (preg_match('#^/admin/pages/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_adminPages_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'adminPages_update')), array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesAdminController::updateAction',));
+            }
+            not_adminPages_update:
+
+            // adminPages_delete
+            if (preg_match('#^/admin/pages/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_adminPages_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'adminPages_delete')), array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesAdminController::deleteAction',));
+            }
+            not_adminPages_delete:
+
+        }
+
+        // pages_pages_page
+        if (0 === strpos($pathinfo, '/page') && preg_match('#^/page/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'pages_pages_page')), array (  '_controller' => 'Pages\\PagesBundle\\Controller\\PagesController::pageAction',));
         }
 
         // ep_epapetrie_homepage

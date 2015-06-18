@@ -1,0 +1,33 @@
+{% extends '::layout/layoutAdmin.html.twig' %}
+
+{% block body -%}
+    <h1>Pages</h1>
+
+    <table class="record_properties">
+        <tbody>
+            
+            <tr>
+                <th>Titre</th>
+                <td>{{ entity.titre }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ entity.contenu }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+   
+        <a href="{{ path('adminPages') }}">
+           <i  class="icon-circle-arrow-left"></i>
+        </a>
+    
+    
+        <a href="{{ path('adminPages_edit', { 'id': entity.id }) }}">
+          <i  class="icon-edit"></i>
+        </a>
+    
+    {{ form(delete_form) }}
+</ul>
+{% endblock %}

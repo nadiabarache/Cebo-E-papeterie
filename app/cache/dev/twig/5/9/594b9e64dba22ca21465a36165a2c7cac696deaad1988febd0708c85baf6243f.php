@@ -8,7 +8,7 @@ class __TwigTemplate_594b9e64dba22ca21465a36165a2c7cac696deaad1988febd0708c85baf
         parent::__construct($env);
 
         // line 1
-        $this->parent = $this->loadTemplate("::layout/layout.html.twig", "PagesPagesBundle:Pages:page.html.twig", 1);
+        $this->parent = $this->loadTemplate("::layout/layoutAdmin.html.twig", "PagesPagesBundle:Pages:page.html.twig", 1);
         $this->blocks = array(
             'body' => array($this, 'block_body'),
         );
@@ -16,7 +16,7 @@ class __TwigTemplate_594b9e64dba22ca21465a36165a2c7cac696deaad1988febd0708c85baf
 
     protected function doGetParent(array $context)
     {
-        return "::layout/layout.html.twig";
+        return "::layout/layoutAdmin.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
