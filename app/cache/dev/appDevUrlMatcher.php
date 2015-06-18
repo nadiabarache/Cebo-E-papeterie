@@ -260,10 +260,70 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_livraisonAdresseSuppression')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\PanierController::adresseSuppressionAction',));
         }
 
-        if (0 === strpos($pathinfo, '/ap')) {
+        if (0 === strpos($pathinfo, '/a')) {
             // ep_epapetrie_validationCommande
             if (0 === strpos($pathinfo, '/api/banque') && preg_match('#^/api/banque/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'ep_epapetrie_validationCommande')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\CommandesController::validationCommandeAction',));
+            }
+
+            if (0 === strpos($pathinfo, '/admin/produits')) {
+                // adminProduits
+                if (rtrim($pathinfo, '/') === '/admin/produits') {
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'adminProduits');
+                    }
+
+                    return array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsAdminController::indexAction',  '_route' => 'adminProduits',);
+                }
+
+                // adminProduits_show
+                if (preg_match('#^/admin/produits/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'adminProduits_show')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsAdminController::showAction',));
+                }
+
+                // adminProduits_new
+                if ($pathinfo === '/admin/produits/new') {
+                    return array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsAdminController::newAction',  '_route' => 'adminProduits_new',);
+                }
+
+                // adminProduits_create
+                if ($pathinfo === '/admin/produits/create') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_adminProduits_create;
+                    }
+
+                    return array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsAdminController::createAction',  '_route' => 'adminProduits_create',);
+                }
+                not_adminProduits_create:
+
+                // adminProduits_edit
+                if (preg_match('#^/admin/produits/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'adminProduits_edit')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsAdminController::editAction',));
+                }
+
+                // adminProduits_update
+                if (preg_match('#^/admin/produits/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                        $allow = array_merge($allow, array('POST', 'PUT'));
+                        goto not_adminProduits_update;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'adminProduits_update')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsAdminController::updateAction',));
+                }
+                not_adminProduits_update:
+
+                // adminProduits_delete
+                if (preg_match('#^/admin/produits/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                    if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                        $allow = array_merge($allow, array('POST', 'DELETE'));
+                        goto not_adminProduits_delete;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'adminProduits_delete')), array (  '_controller' => 'EP\\EpapeterieBundle\\Controller\\ProduitsAdminController::deleteAction',));
+                }
+                not_adminProduits_delete:
+
             }
 
             // homepage

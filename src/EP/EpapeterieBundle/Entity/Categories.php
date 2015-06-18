@@ -95,4 +95,8 @@ class Categories
     {
         return $this->image;
     }
+    
+    public function __toString() {
+        return $this->getNom();
+    }
 }

@@ -10,6 +10,9 @@ ep_epapetrie:
     resource: "@EPEpapetrieBundle/Resources/config/routing.yml"
     prefix:   /
 
+ep_epapetrie_ProduitAdmin:
+    resource: "@EPEpapetrieBundle/Resources/config/routingAdmin/produits.yml"
+    prefix:   /admin/produits
 
 app:
     resource: @AppBundle/Controller/
