@@ -29,7 +29,7 @@ class __TwigTemplate_91c2f1da04e18cda378445a78cedd7c1b5a03754c9e7d4a548bf9b46088
     {
         // line 4
         echo "<h2>Ajout d'une page</h2>
-<div class=\"span4\">
+<div class=\"span9\">
     ";
         // line 6
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'form');

@@ -29,7 +29,7 @@ class __TwigTemplate_eb3c7d947ddc5bd78b4c9f7693c63837ddcf600f6eb5bf681981a7e8626
     {
         // line 4
         echo "<h1>Editer la page </h1>
-<div class=\"span4\">
+<div class=\"span9\">
     ";
         // line 6
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["edit_form"]) ? $context["edit_form"] : $this->getContext($context, "edit_form")), 'form');

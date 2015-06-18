@@ -57,6 +57,10 @@ class __TwigTemplate_f2b388acc43b938f580f40c06e00e4ad014406af62e37b7f405ea175531
         // line 12
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("css/font-awesome.css"), "html", null, true);
         echo "\" />
+        <link rel=\"stylesheet\" href=\"";
+        // line 13
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/pagespages/ckeditor.css"), "html", null, true);
+        echo "\" />
     </head>
     <body>
 
@@ -79,14 +83,14 @@ class __TwigTemplate_f2b388acc43b938f580f40c06e00e4ad014406af62e37b7f405ea175531
         <div class=\"container\">
             <div class=\"row\">
                 ";
-        // line 34
-        $this->loadTemplate("::modulesUsed/navigationAdmin.html.twig", "::layout/layoutAdmin.html.twig", 34)->display($context);
         // line 35
+        $this->loadTemplate("::modulesUsed/navigationAdmin.html.twig", "::layout/layoutAdmin.html.twig", 35)->display($context);
+        // line 36
         echo "                <div class=\"span9\">
                     ";
-        // line 36
-        $this->displayBlock('body', $context, $blocks);
         // line 37
+        $this->displayBlock('body', $context, $blocks);
+        // line 38
         echo "                </div>
             </div>
         </div>
@@ -97,7 +101,7 @@ class __TwigTemplate_f2b388acc43b938f580f40c06e00e4ad014406af62e37b7f405ea175531
                 <div class=\"row\">
                     <div class=\"span4 \">
                        <p>&copy; Copyright ";
-        // line 46
+        // line 47
         echo twig_escape_filter($this->env, twig_date_format_filter($this->env, "now", "Y"), "html", null, true);
         echo " - Sogip CEBO</p>
                     </div>
@@ -105,17 +109,22 @@ class __TwigTemplate_f2b388acc43b938f580f40c06e00e4ad014406af62e37b7f405ea175531
             </div>
         </footer>
        <script src=\"";
-        // line 51
+        // line 52
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("js/jquery-1.10.0.min.js"), "html", null, true);
         echo "\"></script>
        <script src=\"";
-        // line 52
+        // line 53
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("../js/bootstrap.js"), "html", null, true);
         echo "\"></script>
-        ";
-        // line 53
-        $this->displayBlock('javascripts', $context, $blocks);
+        <script src=\"";
         // line 54
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/pagespages/ckeditor/ckeditor.js"), "html", null, true);
+        echo "\"></script>
+
+        ";
+        // line 56
+        $this->displayBlock('javascripts', $context, $blocks);
+        // line 57
         echo "    </body>
 </html>
 ";
@@ -139,12 +148,12 @@ class __TwigTemplate_f2b388acc43b938f580f40c06e00e4ad014406af62e37b7f405ea175531
         echo " ";
     }
 
-    // line 36
+    // line 37
     public function block_body($context, array $blocks = array())
     {
     }
 
-    // line 53
+    // line 56
     public function block_javascripts($context, array $blocks = array())
     {
     }
@@ -161,6 +170,6 @@ class __TwigTemplate_f2b388acc43b938f580f40c06e00e4ad014406af62e37b7f405ea175531
 
     public function getDebugInfo()
     {
-        return array (  148 => 53,  143 => 36,  137 => 7,  131 => 6,  125 => 5,  119 => 54,  117 => 53,  113 => 52,  109 => 51,  101 => 46,  90 => 37,  88 => 36,  85 => 35,  83 => 34,  58 => 12,  54 => 11,  50 => 10,  46 => 9,  42 => 8,  38 => 7,  34 => 6,  30 => 5,  24 => 1,);
+        return array (  157 => 56,  152 => 37,  146 => 7,  140 => 6,  134 => 5,  128 => 57,  126 => 56,  121 => 54,  117 => 53,  113 => 52,  105 => 47,  94 => 38,  92 => 37,  89 => 36,  87 => 35,  62 => 13,  58 => 12,  54 => 11,  50 => 10,  46 => 9,  42 => 8,  38 => 7,  34 => 6,  30 => 5,  24 => 1,);
     }
 }

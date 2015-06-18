@@ -1,6 +1,6 @@
 <?php
 
-/* ::modulesUsed/navigation.html.twig */
+/* :modulesUsed:navigation.html.twig */
 class __TwigTemplate_372ed0f0317b8ab5d2de48ed4c84c7ce0eaa824ba7d389def9e10e53573c95d5 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -32,7 +32,7 @@ class __TwigTemplate_372ed0f0317b8ab5d2de48ed4c84c7ce0eaa824ba7d389def9e10e53573
 
     public function getTemplateName()
     {
-        return "::modulesUsed/navigation.html.twig";
+        return ":modulesUsed:navigation.html.twig";
     }
 
     public function isTraitable()
